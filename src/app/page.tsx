@@ -1,9 +1,27 @@
-export default async function Home() {
-  // eslint-disable-next-line prettier/prettier
-  await new Promise(resolve => setTimeout(resolve, 2000))
+import { Suspense } from 'react'
 
-  const response = await fetch('https://api.github.com/users/Tainmat')
-  const user = await response.json()
+import { GithubProfile } from '@/components/GithubProfile'
+import { LongWaitComponent } from '@/components/LongWaitComponent'
 
-  return <pre>{JSON.stringify(user, null, 2)}</pre>
+export default function Home() {
+  return (
+    <div>
+      <h1>Home</h1>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+        itaque ab rerum laboriosam unde quasi amet repellat rem, accusamus
+        dolores voluptatem at obcaecati eius adipisci sunt fuga consequatur
+        officiis cupiditate.
+      </p>
+
+      <Suspense fallback={<p>Carregando LongWaitComponent</p>}>
+        <LongWaitComponent />
+      </Suspense>
+
+      <Suspense fallback={<p>Carregando GithubProfile</p>}>
+        <GithubProfile />
+      </Suspense>
+    </div>
+  )
 }
